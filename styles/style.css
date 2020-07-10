@@ -1,0 +1,54 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    flex-wrap: wrap;
+    border: 5px solid goldenrod;
+}
+
+.game-board {
+    height: 50vh;
+    width: 50vh;
+    background-color: pink;
+    display: flex;
+    align-self: center;
+    flex-wrap: wrap;
+    border-radius: 5px;
+}
+
+.cell {
+    width: 32.8%;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    border-radius:5px;   
+}
+
+.welcomeDiv {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    font-size: 35px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 1px solid black;
+}
+
+.welcomeDiv button {
+    width: 35%;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 20px;
+}
+
+
