@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Da+2&display=swap");
+
 * {
     padding: 0;
     margin: 0;
+    font-family: 'Baloo Da 2', cursive;
 }
 
 .container {
@@ -9,46 +12,73 @@
     flex-direction: column;
     height: 100vh;
     flex-wrap: wrap;
-    border: 5px solid goldenrod;
+    border: 20px solid goldenrod;
+}
+
+.message-controller {
+    text-align: center;
+    margin-bottom: 40px;
 }
 
 .game-board {
     height: 50vh;
     width: 50vh;
-    background-color: pink;
     display: flex;
     align-self: center;
     flex-wrap: wrap;
     border-radius: 5px;
+    background-color: pink;
+    justify-content: center;
+}
+
+.game-board .welcome-screen {
+    margin-top: 20px;
+    
+}
+
+.welcome-screen input {
+    height: 3vh;
+    width: 10vh;
 }
 
 .cell {
     width: 32.8%;
+    height: 32.8%;
     border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 50px;
     border-radius:5px;   
+    cursor: pointer;
 }
 
-.welcomeDiv {
+.cell:hover {
+    filter: brightness(110%);
+
+}
+
+.players {
     display: flex;
-    width: 100%;
-    flex-direction: row;
-    font-size: 35px;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.playerOneDisplay {
+    margin-right: 50px;
+    background-color: crimson;
+    padding: 20px 30px 20px 30px;
+    border-radius: 10px;
+    color: white;
     border: 1px solid black;
 }
 
-.welcomeDiv button {
-    width: 35%;
-    cursor: pointer;
-    padding: 10px;
-    margin-right: 10px;
-    border-radius: 20px;
+.playerTwoDisplay {
+    border: 1px solid black;
+    background-color: crimson;
+    padding: 20px 30px 20px 30px;
+    border-radius: 10px;
+    color: white;
 }
 
 

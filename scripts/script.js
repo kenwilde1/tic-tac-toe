@@ -1,6 +1,6 @@
 const gameBoard = (() => {
 
-    const gameboard = ['1','2','3','4','5','6','7','8','9'];
+    const gameboard = [' ',' ',' ',' ',' ',' ',' ',' ',' '];
     const gameBoardDiv = document.querySelector('.game-board');
 
     const drawCell = (cell) => {
@@ -13,40 +13,76 @@ const gameBoard = (() => {
     }
 
     const drawGameBoard = (arr) => {
-        while (gameBoardDiv.childElementCount > 0) {
-            gameBoardDiv.removeChild(gameBoardDiv.lastChild);
-        }
+        //while (gameBoardDiv.childElementCount > 0) {
+        //    gameBoardDiv.removeChild(gameBoardDiv.lastChild);
+        //}
         arr.forEach( cell => drawCell(cell));
 
     }
 
-    return { drawGameBoard, gameboard };
+    const updateGameBoard = (e, index, selection) => {
+
+        e.textContent = selection;
+        gameboard[index] = selection;      
+
+        console.log(gameboard);
+
+    }
+
+    return { drawGameBoard, gameboard, updateGameBoard };
 
 })();
 
 const new_game = gameBoard.drawGameBoard(gameBoard.gameboard)
 
+const Player = (name, selection) => {
+
+    let score = 0;
+
+    const setScore = (n) => {
+        const getScore = document.querySelector('.playerOneScore');
+        getScore.textContent = `Score: ${n}`;
+    }
+
+    const setName = (name) {
+        
+    }
+
+    const getName = (name) => {
+        name;
+    }
+
+    const getSelection = () => {
+        selection;
+    }
+
+    return { setScore, getName, score, selection};
+}
+
+
 const displayController = (() => {
+
+
 
     const drawSelection = () => {
 
-        
-        const gameCells = document.querySelectorAll('.game-board .cell');
-        const currentGameboard = gameBoard.gameboard;
-        
-        gameCells.forEach( gameCell => gameCell.addEventListener('click', (e) => {
+        const gameCells = Array.from(document.querySelectorAll('.game-board .cell'));
 
-            // placeholder way of getting index of gameboard array and placing an X in its position. 
-            const index = parseInt(e.target.textContent) - 1;
-            currentGameboard[index] = 'X';
+        for (i = 0; i < gameCells.length; i++) {
+            gameCells[i].id = `${[i]}`;
+        }
 
-            console.log(currentGameboard);
-            
-            gameBoard.drawGameBoard(currentGameboard); // this returns a value and then the event listener stops listening for further clicks?
 
+
+        gameCells.forEach( cell => cell.addEventListener('click', (e) => {
+            const index = e.target.id;
+            gameBoard.updateGameBoard(e.target, index, "X");
         }));
-
     }
+
+
+
+
 
     return { drawSelection };
 
