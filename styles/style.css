@@ -31,16 +31,6 @@
     justify-content: center;
 }
 
-.game-board .welcome-screen {
-    margin-top: 20px;
-    
-}
-
-.welcome-screen input {
-    height: 3vh;
-    width: 10vh;
-}
-
 .cell {
     width: 32.8%;
     height: 32.8%;
@@ -71,6 +61,22 @@
     border-radius: 10px;
     color: white;
     border: 1px solid black;
+}
+
+.playerOneDisplay #playerOneName:hover {
+    cursor: pointer;
+}
+
+.playerOneDisplay #playerOneSelection:hover {
+    cursor: pointer;
+}
+
+.playerTwoDisplay #playerTwoName:hover {
+    cursor: pointer;
+}
+
+.playerTwoDisplay #playerTwoSelection:hover {
+    cursor: pointer;
 }
 
 .playerTwoDisplay {
