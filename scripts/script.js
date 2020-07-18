@@ -28,7 +28,7 @@ const gameBoard = (() => {
         
     }
 
-    const endGame = (p) => {
+    const endGame = (p, result) => {
 
         while (gameBoardDiv.childElementCount > 0) {
             gameBoardDiv.removeChild(gameBoardDiv.lastChild);
@@ -36,16 +36,21 @@ const gameBoard = (() => {
 
         const endGameDiv = document.createElement('div');
         const endGameHeader = document.createElement('h2');
-        endGameHeader.textContent = `Game Over! ${p.name} won!`;
+
+        if(result == "Win") {
+            endGameHeader.textContent = `Game Over! ${p.name} won!`;
+            p.setScore(1);
+            game.updateScoreTally(p);
+        }else if(result == "Draw") {
+            endGameHeader.textContent = `Game Over! It's a Tie!`;
+        }
+        
         endGameDiv.appendChild(endGameHeader);
 
         const restartButton = document.createElement('button');
         restartButton.textContent = "Restart Game";
 
         endGameDiv.appendChild(restartButton);
-        console.log(p);
-        p.setScore(1);
-        game.updateScoreTally(p);
         gameBoardDiv.appendChild(endGameDiv);
 
         restartButton.addEventListener('click', game.playGame);
@@ -59,6 +64,15 @@ const gameBoard = (() => {
 const Player = (name, selection) => {
 
     let score = 0;
+    this.selection = selection;
+
+    const setName = (newName) => {
+        name = newName || "Player";
+    } 
+
+    const setMarker = (marker) => {
+        selection = marker;
+    }
 
     const getScore = () => {
         return score;
@@ -68,9 +82,8 @@ const Player = (name, selection) => {
         score += n;
     }
 
-    return { setScore, name, selection, getScore};
+    return { setScore, name, selection, getScore, setName, setMarker };
 }
-
 
 const displayController = (() => {
 
@@ -92,16 +105,18 @@ const displayController = (() => {
         for (i = 0; i < gameCells.length; i++) {
             gameCells[i].id = `${[i]}`;
         }
-        console.log(currentPlayer.selection);
+
         gameCells.forEach( cell => cell.addEventListener('click', (e) => {
             
             const index = e.target.id;
+            if (e.target.textContent == " ") {
+                gameBoard.updateGameBoard(e.target, index, currentPlayer.selection, arr);
+                game.checkWin(arr, currentPlayer);
+                changeCurrentPlayer();
+            } else {
+                alert('Spot already taken! Choose again!');
+            }
             
-            gameBoard.updateGameBoard(e.target, index, currentPlayer.selection, arr);
-            game.checkWin(arr, currentPlayer);
-            changeCurrentPlayer();
-            
-
         }));
     }
 
@@ -133,14 +148,20 @@ const game = (() => {
             const combo = winningCombinations[i];
             
             if(arr[combo[0]] == player.selection && arr[combo[1]] == player.selection && arr[combo[2]] == player.selection) {
-                gameBoard.endGame(player);
+                gameBoard.endGame(player, "Win");
             }
         }
+        if(!arr.includes(' ')) {
+            gameBoard.endGame(player, "Draw");
+        }
+
     }
 
     const updateScoreTally = (p) => {
 
-        if (p.name == "Player 1") {
+        console.log(p);
+
+        if (p.name == displayController.playerOne.name) {
             const getScoreFieldOne = document.querySelector('#PlayerOneScore');
             getScoreFieldOne.textContent = `Score: ${p.getScore()}`;
         }else {
